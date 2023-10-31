@@ -8,7 +8,7 @@ project:
   source_files:        
     - lif.v
     - tt_um_lif.v
-  top_module:  "lif"      # Put the name of your top module here, must start with "tt_um_". Make it unique by including your github username
+  top_module:  "tt_um_lif"      # Put the name of your top module here, must start with "tt_um_". Make it unique by including your github username
 
 # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"    # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2 or 8x2
@@ -47,27 +47,27 @@ documentation:
 
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
-    - compare bit 11
-    - compare bit 12
-    - compare bit 13
-    - compare bit 14
-    - compare bit 15
-    - compare bit 16
-    - compare bit 17
-    - compare bit 18
+    - current bit 11
+    - current bit 12
+    - current bit 13
+    - current bit 14
+    - current bit 15
+    - current bit 16
+    - current bit 17
+    - current bit 18
 # A description of what the outputs do (e.g. status LED, SPI MISO, etc)
   outputs:
-    - segment a
-    - segment b
-    - segment c
-    - segment d
-    - segment e
-    - segment f
-    - segment g
-    - dot
+    - membrane a
+    - membrane b
+    - membrane c
+    - membrane d
+    - membrane e
+    - membrane f
+    - membrane g
+    - membrane h
 # A description of what the bidirectional I/O pins do (e.g. I2C SDA, I2C SCL, etc)
   bidirectional:
-    - second counter bit 0
+    - spike bit 0
     - second counter bit 1
     - second counter bit 2
     - second counter bit 3
