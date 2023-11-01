@@ -7,19 +7,20 @@ module lif (
 );
     reg [7:0] state, threshold;
 
-    // resting potential and threshold
-    assign next_state = current + ((spike > 0) ? 0 : (state >> 1));
-    assign spike = (state >= threshold);
+
 
     always @(posedge clk) begin
         if (!rst_n) begin
             state <= 0;
-            threshold <= 32;
+            threshold <= 40;
         end else begin
             state <= next_state;
         end
     end
 
+    // resting potential and threshold
+    assign next_state = current + ((spike > 0) ? 0 : (state >> 1));
+    assign spike = (state >= threshold);
 
 
 endmodule
