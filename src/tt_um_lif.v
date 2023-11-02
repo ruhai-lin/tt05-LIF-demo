@@ -15,12 +15,7 @@ module tt_um_lif (
     assign uio_oe = 8'b11111111;
     assign uio_out [6:0] = 6'd0;
 
-    wire [7:0] state;
-    wire spike;
-
     // instantiate the lif neurons
     lif lif1 (.current(ui_in), .state(uo_out), .spike(uio_out[7]), .clk(clk), .rst_n(rst_n));
-    assign state = uo_out;
-    assign spike = uio_out[7];
  
 endmodule
