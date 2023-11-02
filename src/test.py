@@ -6,9 +6,9 @@ from cocotb.triggers import RisingEdge, FallingEdge, Timer, ClockCycles
 segments = [ 63, 6, 91, 79, 102, 109, 124, 7, 127, 103 ]
 
 @cocotb.test()
-async def test_7seg(dut):
+async def test_lif(dut):
 
-    CONSTANT_CURRENT = 40 # Inject a constant current
+    CONSTANT_CURRENT = 100 # Inject a constant current
 
     dut._log.info("start")
 
