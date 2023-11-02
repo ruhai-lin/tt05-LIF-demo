@@ -20,7 +20,7 @@ module lif (
     end
 
     // resting potential and threshold
-    assign next_state = (spike ? 0 : current) + (spike > 0 ? 0 : (state*0.875));
+    assign next_state = (spike ? 0 : current) + (spike > 0 ? 0 : (state * 7'b1110000 >> 7));
     assign spike = (state >= threshold);
 
 
