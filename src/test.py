@@ -9,6 +9,8 @@ segments = [ 63, 6, 91, 79, 102, 109, 124, 7, 127, 103 ]
 async def test_lif(dut):
 
     CONSTANT_CURRENT = 100 # Inject a constant current
+    WEAKER_CONSTANT_CURRENT = 50 # Inject a weaker current
+    NO_CURRENT = 0 # No current
 
     dut._log.info("start")
 
@@ -23,7 +25,17 @@ async def test_lif(dut):
     dut.ui_in.value = CONSTANT_CURRENT
     dut.ena.value = 1 # enable design
 
-    for _ in range(100): # run for 100 clock cycle
+    for _ in range(200): # run for 200 clock cycle
+        await RisingEdge(dut.clk)
+
+    dut.ui_in.value = WEAKER_CONSTANT_CURRENT
+    
+    for _ in range(200): # run for 200 clock cycle
+        await RisingEdge(dut.clk)
+
+    dut.ui_in.value = NO_CURRENT
+
+    for _ in range(200): # run for 200 clock cycle
         await RisingEdge(dut.clk)
 
     dut._log.info("Finished Test!")
