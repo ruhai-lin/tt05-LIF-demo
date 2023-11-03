@@ -9,11 +9,11 @@ module lif (
 );
 
     wire [7:0] next_state;
-    reg [7:0] threshold;  // 自适应阈值
-    reg [7:0] beta;
+    reg [15:0] threshold;
+    reg [15:0] beta;
 
-    parameter ADAPTIVE_INCREMENT = 295;  // 自适应增加因子
-    parameter ADAPTIVE_DECREMENT = 244;  // 自适应减小因子
+    parameter ADAPTIVE_INCREMENT = 295;  // adaptive increment factor
+    parameter ADAPTIVE_DECREMENT = 244;  // adaptive decrement factor
 
 
     always @(posedge clk) begin
@@ -25,15 +25,15 @@ module lif (
             if (spike) begin
                 state <= 0;
                 if (learnable_threshold && (threshold < 220))  // avoiding overflow 255
-                    threshold <= threshold * ADAPTIVE_INCREMENT >> 8;  // 增加自适应阈值
+                    threshold <= threshold * ADAPTIVE_INCREMENT >> 8;  // increase threshold
                 if (learnable_beta && (beta < 220))
-                    beta <= beta * ADAPTIVE_INCREMENT >> 8; // 增加自适应衰减率
+                    beta <= beta * ADAPTIVE_INCREMENT >> 8; // increse decay rate
             end else begin
                 state <= next_state;
                 if (learnable_threshold && (threshold > 8))  // avoiding being to low
-                    threshold <= threshold * ADAPTIVE_DECREMENT >> 8;  // 减小自适应阈值
+                    threshold <= threshold * ADAPTIVE_DECREMENT >> 8;  // decrease threshold
                 if (learnable_beta && (beta > 128))
-                    beta <= beta * ADAPTIVE_DECREMENT >> 8; // 增加自适应衰减率
+                    beta <= beta * ADAPTIVE_DECREMENT >> 8; // decrease decay rate
             end
         end
     end
