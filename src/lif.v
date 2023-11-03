@@ -18,24 +18,24 @@ module lif (
 
     always @(posedge clk) begin
         if (!rst_n) begin
-            state <= 8'b00000000;
-            threshold <= 8'b01100100;  // initial threshold 100
+            state <= 0;
+            threshold <= 100;  // initial threshold 100
             // beta <= 0.9;            // +
         end else begin
             if (spike) begin
-                state <= 8'b00000000;
-                if (learnable_threshold && threshold < 8'b11011100)  // avoiding overflow 255 +
+                state <= 0;
+                if (learnable_threshold && threshold < 220)  // avoiding overflow 255
                     threshold <= threshold * ADAPTIVE_INCREMENT;  // 增加自适应阈值
             end else begin
                 state <= next_state;
-                if (learnable_threshold && threshold > 8'b00001000)  // avoiding being to low +
+                if (learnable_threshold && threshold > 8)  // avoiding being to low
                     threshold <= threshold * ADAPTIVE_DECREMENT;  // 减小自适应阈值
             end
         end
     end
 
     // resting potential and threshold
-    assign next_state = (spike ? 0 : (current)) + (spike > 0 ? 0 : (state * 7'b1110000 >> 7)); //+
+    assign next_state = (spike ? 0 : (current)) + (spike > 0 ? 0 : (state * 0.875));
     assign spike = (state >= threshold);
 
 endmodule
