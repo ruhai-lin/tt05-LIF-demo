@@ -1,14 +1,14 @@
 module lif (
-    input wire [7:0] current,
+    input wire [15:0] current,
     input wire clk,
     input wire rst_n,
     input wire learnable_threshold,  // 控制阈值是否可以学习
     input wire learnable_beta,  // 控制decay rate是否可以学习
-    output reg [7:0] state,
+    output reg [15:0] state,
     output wire spike
 );
 
-    wire [7:0] next_state;
+    wire [15:0] next_state;
     reg [15:0] threshold;
     reg [15:0] beta;
 

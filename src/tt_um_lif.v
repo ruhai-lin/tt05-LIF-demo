@@ -15,9 +15,12 @@ module tt_um_lif (
     assign uio_oe = 8'b11111111;
     assign uio_out [6:0] = 7'd0;
     wire temp;
+    wire [15:0] uo_out_holder;
 
     // instantiate the lif neurons
-    lif lif1 (.current(ui_in), .state(uo_out), .spike(temp), .learnable_threshold(1'b1), .learnable_beta(1'b1), .clk(clk), .rst_n(rst_n));
+    lif lif1 (.current({8'b00000000, ui_in}), .state(uo_out_holder), .spike(uio_out[7]), .learnable_threshold(1'b1), .learnable_beta(1'b1), .clk(clk), .rst_n(rst_n));
     // lif lif2 (.current(temp >> 6), .state(uo_out), .spike(uio_out[7]), .learnable_threshold(1'b1), .learnable_beta(1'b1), .clk(clk), .rst_n(rst_n));
+
+    assign uo_out = uo_out_holder[7:0];  
 
 endmodule
