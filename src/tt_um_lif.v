@@ -14,9 +14,10 @@ module tt_um_lif (
     // use bidirectionals as outputs
     assign uio_oe = 8'b11110000;
     assign uio_out [6:0] = 7'd0;
+    assign uio_in [7:2] = 6'd0;
 
     // instantiate the lif neurons
-    lif lif1 (.current(ui_in), .state(uo_out), .spike(uio_out[7]), .learnable_threshold(uio_in[0]), .learnable_beta(uio_in[1]), .clk(clk), .rst_n(rst_n));
+    lif lif1 (.current(ui_in), .state(uo_out), .spike(uio_out[7]), .adaptive_threshold(uio_in[0]), .adaptive_beta(uio_in[1]), .clk(clk), .rst_n(rst_n));
     // lif lif2 (.current(temp >> 6), .state(uo_out), .spike(uio_out[7]), .learnable_threshold(1'b1), .learnable_beta(1'b1), .clk(clk), .rst_n(rst_n));
 
 endmodule
