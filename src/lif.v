@@ -2,8 +2,8 @@ module lif (
     input wire [7:0] current,
     input wire clk,
     input wire rst_n,
-    input wire learnable_threshold,  // 控制阈值是否可以学习
-    input wire learnable_beta,  // 控制decay rate是否可以学习
+    input wire adaptive_threshold,  // enable adaptive threshold  (enable when = 1, disable when = 0)
+    input wire adaptive_beta,       // enable adaptive decay rate (enable when = 1, disable when = 0)
     output reg [7:0] state,
     output wire spike
 );
@@ -26,15 +26,15 @@ module lif (
         end else begin
             if (spike) begin
                 state <= 0;
-                if (learnable_threshold && (threshold < 220))  // avoiding overflow 255
+                if (adaptive_threshold && (threshold < 220))  // avoiding overflow 255
                     threshold <= threshold * ADAPTIVE_INCREMENT >> 8;  // increase threshold
-                if (learnable_beta && (beta > 128))
+                if (adaptive_beta && (beta > 128))
                     beta <= beta * ADAPTIVE_DECREMENT >> 8; // decrease decay rate
             end else begin
                 state <= next_state;
-                if (learnable_threshold && (threshold > 32))  // avoiding being to low
+                if (adaptive_threshold && (threshold > 32))  // avoiding being to low
                     threshold <= threshold * ADAPTIVE_DECREMENT >> 8;  // decrease threshold
-                if (learnable_beta && (beta < 220))
+                if (adaptive_beta && (beta < 220))
                     beta <= beta * ADAPTIVE_INCREMENT >> 8; // increse decay rate
             end
         end
