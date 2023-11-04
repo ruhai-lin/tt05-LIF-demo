@@ -14,8 +14,6 @@ module lif (
 
     parameter ADAPTIVE_INCREMENT = 295;  // adaptive increment factor
     parameter ADAPTIVE_DECREMENT = 250;  // adaptive decrement factor
-    // parameter ADAPTIVE_BETA_INCREMENT = 295;  // adaptive increment factor
-    // parameter ADAPTIVE_BETA_DECREMENT = 218;  // adaptive decrement factor
 
 
     always @(posedge clk) begin
