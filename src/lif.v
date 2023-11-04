@@ -13,7 +13,9 @@ module lif (
     reg [7:0] beta;
 
     parameter ADAPTIVE_INCREMENT = 295;  // adaptive increment factor
-    parameter ADAPTIVE_DECREMENT = 244;  // adaptive decrement factor
+    parameter ADAPTIVE_DECREMENT = 250;  // adaptive decrement factor
+    // parameter ADAPTIVE_BETA_INCREMENT = 295;  // adaptive increment factor
+    // parameter ADAPTIVE_BETA_DECREMENT = 218;  // adaptive decrement factor
 
 
     always @(posedge clk) begin
@@ -26,14 +28,14 @@ module lif (
                 state <= 0;
                 if (learnable_threshold && (threshold < 220))  // avoiding overflow 255
                     threshold <= threshold * ADAPTIVE_INCREMENT >> 8;  // increase threshold
-                if (learnable_beta && (beta < 220))
-                    beta <= beta * ADAPTIVE_INCREMENT >> 8; // increse decay rate
-            end else begin
-                state <= next_state;
-                if (learnable_threshold && (threshold > 8))  // avoiding being to low
-                    threshold <= threshold * ADAPTIVE_DECREMENT >> 8;  // decrease threshold
                 if (learnable_beta && (beta > 128))
                     beta <= beta * ADAPTIVE_DECREMENT >> 8; // decrease decay rate
+            end else begin
+                state <= next_state;
+                if (learnable_threshold && (threshold > 32))  // avoiding being to low
+                    threshold <= threshold * ADAPTIVE_DECREMENT >> 8;  // decrease threshold
+                if (learnable_beta && (beta < 220))
+                    beta <= beta * ADAPTIVE_INCREMENT >> 8; // increse decay rate
             end
         end
     end
