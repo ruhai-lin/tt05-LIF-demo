@@ -9,8 +9,8 @@ segments = [ 63, 6, 91, 79, 102, 109, 124, 7, 127, 103 ]
 async def test_lif(dut):
 
     CONSTANT_CURRENT = 100 # Inject a constant current
-    WEAKER_CONSTANT_CURRENT = 50 # Inject a weaker current
-    NO_CURRENT = 25 # Almost No current
+    WEAKER_CONSTANT_CURRENT = 25 # Inject a weaker current
+    NO_CURRENT = 6 # Almost No current
 
     dut._log.info("start")
 
